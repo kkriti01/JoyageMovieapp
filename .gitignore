@@ -1,0 +1,9 @@
+*.pyc
+
+#Sqlite files
+*.sqlite
+*.sqlite3
+
+#Media directory
+media
+staticfiles

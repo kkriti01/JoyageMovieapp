@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="row">
+    {% comment %}
+        <div class="col-md-9">
+            {% for movie in movies %}
+                <ul>
+                   <li><img src="{{movie.image}}" height="100" width="100"/></li>
+                   <li>Movie: <strong>{{ movie.name }}</strong></li>
+                   <li>Theater:  {{ movie.theater.name }}</li>
+                   <li>Showtimes:
+                     {% for st in movie.showtime_set.all %}
+                       <a href="{{st.book_link}}">{{ st.time }}</a>,
+                    {% endfor %}
+                   </li>
+                   <li>Address: {{movie.theater.address}}</li>
+                </ul>
+            {% endfor %}
+        </div>
+        {% endcomment %}
+        <div class="col-md-12">
+            {% for movie in movies %}
+                <div class="col-xs-18 col-sm-4 col-md-3">
+                    <div class="productbox">
+                        <div class="imgthumb img-responsive">
+                            <img src="{{ movie.image }}" style="height:200px">
+                        </div>
+                        <div class="caption">
+                            <h5>{{ movie.name }}</h5>
+                               <ul class="list-unstyled">
+                               <li><strong>{{ movie.theater.name }}</strong></li>
+                               <li>Showtimes:
+                                 {% for st in movie.showtime_set.all %}
+                                   <a href="{{st.book_link}}">{{ st.time }}</a> ,
+                                {% endfor %}
+                               </li>
+                               <li>Address: {{movie.theater.address}}</li>
+                               </ul>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <h5>No movie found. Please fetch movie data from shell</h5>
+            {% endfor %}
+        </div>
+    </div>
+    <!--/row-->
+    <div class="pagination">
+    <span class="step-links">
+        {% if movies.has_previous %}
+            <a href="?page={{ movies.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
+        </span>
+
+        {% if movies.has_next %}
+            <a href="?page={{ movies.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+    </div>
+{% endblock content %}

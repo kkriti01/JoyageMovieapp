@@ -14,13 +14,13 @@ def feth_movies_data(url='http://188.166.208.228/us_movies/'):
         city = theatre['city']
         address = theatre['address']
         print(theater_name)
-        theatre_obj, created = models.Theater.objects.get_or_create(name=theater_name)
+        theater_obj, created = models.Theater.objects.get_or_create(name=theater_name)
         if created:
-            theatre_obj.link = theater_link
-            theatre_obj.name = theater_name
-            theatre_obj.city = city
-            theatre_obj.address = address
-            theatre_obj.save()
+            theater_obj.link = theater_link
+            theater_obj.name = theater_name
+            theater_obj.city = city
+            theater_obj.address = address
+            theater_obj.save()
         for movie in movie_list:
             name = movie['name']
             tags = movie['tags']
@@ -29,7 +29,7 @@ def feth_movies_data(url='http://188.166.208.228/us_movies/'):
             screen_format = movie['screen_format']
             duration = movie['duration']
             print(name)
-            movie_obj, created = models.Movie.objects.get_or_create(name=name, theatre=theatre_obj)
+            movie_obj, created = models.Movie.objects.get_or_create(name=name, theater=theater_obj)
             if created:
                 movie_obj.image = image
                 movie_obj.screen_format = screen_format,
